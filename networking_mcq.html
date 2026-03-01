@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LAN & WAN Online Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f7;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+<h1>LAN, WAN & PAN Networking Assessment</h1>
+
+<label><b>Student Name:</b></label>
+<input type="text" id="studentName" required style="width:100%; padding:8px; margin-bottom:20px;">
+
+<form id="quizForm"></form>
+
+<button onclick="checkAnswers()">Submit Assessment</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+const questions = [
+["q1","What is the primary difference between a LAN and WAN?",
+["LAN is wireless, WAN is wired.",
+"LAN covers larger area than WAN.",
+"LAN is small/localized, WAN spans larger areas.",
+"LAN uses Internet, WAN uses cables."],"C"],
+
+["q2","Device used to connect multiple devices within a LAN?",
+["Router","Switch","Modem","Firewall"],"B"],
+
+["q3","Purpose of a router?",
+["Connect multiple LANs in one location",
+"Connect LAN to Internet",
+"Connect multiple WANs",
+"Connect wireless devices"],"B"],
+
+["q4","Topology connecting all devices to a central hub?",
+["Bus","Star","Ring","Mesh"],"B"],
+
+["q5","IP stands for?",
+["Internet Protocol","Internal Protocol","Information Packet","Internet Provider"],"A"],
+
+["q6","Maximum distance of LAN?",
+["Few meters","Few kilometers","Hundreds of kilometers","Thousands"],"B"],
+
+["q7","Network used in home/office via Wi-Fi?",
+["LAN","MAN","WAN","PAN"],"A"],
+
+["q8","Translates domain name to IP?",
+["Router","DNS Server","Modem","Switch"],"B"],
+
+["q9","Technology connecting LANs securely over Internet?",
+["VLAN","VPN","MAN","WAN"],"B"],
+
+["q10","Device connecting LAN to ISP network?",
+["Modem","Router","Switch","Firewall"],"B"],
+
+["q11","Typical maximum LAN speed?",
+["1 Mbps","100 Mbps","1 Gbps","10 Gbps"],"C"],
+
+["q12","WAN connection using physical cable?",
+["Wireless","Satellite","Wired","Cellular"],"C"],
+
+["q13","Personal workspace network?",
+["LAN","WAN","PAN","MAN"],"C"],
+
+["q14","Latency refers to?",
+["Speed","Data amount","Delay","Number of devices"],"C"],
+
+["q15","Bandwidth refers to?",
+["Devices connected","Speed","Signal range","Topology"],"B"],
+
+["q16","Connect multiple LANs in a building?",
+["Router","Switch","Modem","Firewall"],"B"],
+
+["q17","Topology refers to?",
+["Speed","Range","Layout","Protocol"],"C"],
+
+["q18","Bluetooth PAN range?",
+["10 meters","30 meters","100 meters","1000 meters"],"A"],
+
+["q19","Data over LAN using light signals?",
+["Ethernet","DSL","Coaxial","Twisted pair"],"A"],
+
+["q20","Translate domain to IP?",
+["Router","DNS Server","Modem","Switch"],"B"],
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((q,index)=>{
+    form.innerHTML += `<div class="question">
+    <b>${index+1}. ${q[1]}</b><br>`;
+    q[2].forEach((option,i)=>{
+        const letter = String.fromCharCode(65+i);
+        form.innerHTML += `<input type="radio" name="${q[0]}" value="${letter}"> ${letter}. ${option}<br>`;
+    });
+    form.innerHTML += `</div>`;
+});
+
+function checkAnswers() {
+    let score = 0;
+
+    let name = document.getElementById("studentName").value;
+    if(name === "") {
+        alert("Please enter your name.");
+        return;
+    }
+
+    questions.forEach(q=>{
+        let selected = document.querySelector(`input[name="${q[0]}"]:checked`);
+        if(selected && selected.value === q[3]) score++;
+    });
+
+    document.getElementById("result").innerHTML =
+    "Student: " + name + "<br>Your Score: " + score + " / 20";
+}
+</script>
+
+</body>
+</html>
